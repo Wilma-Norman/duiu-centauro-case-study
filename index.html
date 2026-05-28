@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DUIU × Centauro — Case Study</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #0D0404;
+      --bg-mid:    #140606;
+      --bg-light:  #FFFFFF;
+      --text:      #FFFFFF;
+      --text-dim:  rgba(255, 255, 255, 0.65);
+      --red:       #D41719;
+      --cyan:      #00C8C0;
+      --border:    rgba(255, 255, 255, 0.1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ─── FADE-IN ANIMATION ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal.delay-1 { transition-delay: 0.1s; }
+    .reveal.delay-2 { transition-delay: 0.2s; }
+    .reveal.delay-3 { transition-delay: 0.3s; }
+    .reveal.delay-4 { transition-delay: 0.4s; }
+
+    /* ─── SLIDE-IN ANIMATIONS ─── */
+    .slide-left {
+      opacity: 0;
+      transform: translateX(-70px);
+      transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1), transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .slide-right {
+      opacity: 0;
+      transform: translateX(70px);
+      transition: opacity 0.75s cubic-bezier(0.22, 1, 0.36, 1), transform 0.75s cubic-bezier(0.22, 1, 0.36, 1);
+      transition-delay: 0.12s;
+    }
+    .slide-left.visible,
+    .slide-right.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      overflow: hidden;
+      padding: 0 6vw;
+      background: #FFFFFF;
+    }
+
+    .hero-bg-image {
+      position: absolute;
+      right: 0;
+      top: 0;
+      height: 100%;
+      width: auto;
+      clip-path: url(#imageClip);
+      pointer-events: none;
+    }
+
+    .hero-fade {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(255,255,255,0) 30%, rgba(255,255,255,0.65) 48%, rgba(255,255,255,0) 64%);
+      pointer-events: none;
+    }
+
+    .hero-glow {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 65% 60% at 25% 45%, rgba(212,23,25,0.40) 0%, transparent 68%),
+        radial-gradient(ellipse 50% 50% at 8% 78%, rgba(170,10,12,0.30) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 40% at 42% 18%, rgba(0,180,172,0.16) 0%, transparent 55%);
+      pointer-events: none;
+    }
+
+    .hero-noise {
+      position: absolute;
+      inset: 0;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-repeat: repeat;
+      background-size: 128px 128px;
+      pointer-events: none;
+    }
+
+    .hero-nav {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 2rem 6vw;
+    }
+
+    .duiu-wordmark {
+      display: block;
+      height: 32px;
+      width: auto;
+    }
+
+    .case-study-badge {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(13, 11, 26, 0.45);
+      border: 1px solid rgba(13, 11, 26, 0.15);
+      padding: 0.35rem 0.85rem;
+      border-radius: 100px;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 560px;
+      padding-top: 8rem;
+      padding-bottom: 6rem;
+    }
+
+    .brand-lockup {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .brand-name {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(1.1rem, 2vw, 1.4rem);
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--red);
+    }
+
+    .brand-divider {
+      width: 1px;
+      height: 1.2rem;
+      background: var(--border);
+    }
+
+    .brand-country {
+      font-size: 0.8rem;
+      font-weight: 400;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(13, 11, 26, 0.45);
+    }
+
+    .hero-drop-label {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-headline {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(3rem, 7.5vw, 7rem);
+      font-weight: 700;
+      line-height: 1.0;
+      letter-spacing: -0.02em;
+      color: #0D0B1A;
+      margin-bottom: 1rem;
+    }
+
+    .hero-headline em {
+      font-style: normal;
+      color: var(--red);
+    }
+
+    .hero-subhead {
+      font-size: clamp(0.9rem, 1.5vw, 1.1rem);
+      color: rgba(13, 11, 26, 0.6);
+      max-width: 520px;
+      line-height: 1.7;
+      margin-bottom: 3rem;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem 2rem;
+    }
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: rgba(13, 11, 26, 0.55);
+    }
+
+    .meta-dot {
+      width: 5px;
+      height: 5px;
+      background: var(--red);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .hero-scroll-hint {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      opacity: 0.3;
+    }
+
+    .scroll-line {
+      width: 1px;
+      height: 48px;
+      background: linear-gradient(to bottom, #0D0B1A, transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.9; }
+    }
+
+    /* ─── STATS SECTION ─── */
+    .stats {
+      width: 100%;
+      background: var(--bg-mid);
+      padding: 8rem 6vw;
+      border-top: 1px solid var(--border);
+    }
+
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin-bottom: 3.5rem;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 3fr 2fr;
+      gap: 2.5rem;
+      align-items: stretch;
+    }
+
+    /* Shared glass card style */
+    .glass-card {
+      border-radius: 14px;
+      overflow: hidden;
+      background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.08) 0%,
+        rgba(255, 255, 255, 0.03) 60%,
+        rgba(255, 255, 255, 0.06) 100%
+      );
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-top-color: rgba(255, 255, 255, 0.22);
+      border-left-color: rgba(255, 255, 255, 0.16);
+      box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.14),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    .glass-card-header {
+      background: rgba(0, 0, 0, 0.55);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 0.8rem 1.6rem;
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    /* Campaign metrics column */
+    .campaign-metrics {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      height: 100%;
+    }
+
+    .campaign-metrics .glass-card {
+      flex: 1;
+    }
+
+    .metric-row-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+      padding: 0.75rem;
+    }
+
+    .metric-cell {
+      padding: 1.4rem 2.2rem 1.4rem 1.2rem;
+      border-radius: 8px;
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    .metric-number {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(1.6rem, 2.2vw, 2.2rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      line-height: 1;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .metric-number.orange { color: var(--cyan); }
+
+    .metric-label {
+      font-size: 0.88rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      display: block;
+    }
+
+    /* Proof metrics panel */
+    .proof-panel {
+      border-left: 3px solid var(--red);
+    }
+
+    .proof-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .proof-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--text);
+    }
+
+    .proof-subtitle {
+      font-size: 0.72rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    .proof-body {
+      padding: 2.5rem 3rem;
+    }
+
+    .proof-metrics {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .proof-metric {
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+    }
+
+    .proof-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+
+    .proof-number {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      line-height: 1;
+    }
+
+    .proof-check {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: rgba(0, 200, 192, 0.12);
+      border: 1px solid rgba(0, 200, 192, 0.3);
+      border-radius: 100px;
+      padding: 0.3rem 0.7rem;
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      white-space: nowrap;
+    }
+
+    .proof-check svg {
+      flex-shrink: 0;
+    }
+
+    .proof-name {
+      font-size: 0.88rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+
+    .proof-bar-wrap {
+      height: 2px;
+      background: var(--border);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .proof-bar {
+      height: 100%;
+      background: linear-gradient(to right, var(--cyan), var(--red));
+      border-radius: 2px;
+      transform-origin: left;
+      animation: barGrow 1.2s ease forwards;
+      animation-play-state: paused;
+    }
+
+    .proof-bar.animated {
+      animation-play-state: running;
+    }
+
+    @keyframes barGrow {
+      from { transform: scaleX(0); }
+      to   { transform: scaleX(1); }
+    }
+
+    .proof-threshold {
+      font-size: 0.65rem;
+      color: var(--text-dim);
+    }
+
+    .proof-threshold strong {
+      color: rgba(255, 255, 255, 0.5);
+      font-weight: 600;
+    }
+
+    /* ─── STORY SECTION ─── */
+    .story {
+      width: 100%;
+      background: var(--bg-light);
+      color: #0D0B1A;
+      padding: 9rem 6vw;
+    }
+
+    .story .section-label {
+      color: rgba(13, 11, 26, 0.45);
+    }
+
+    .story-grid {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 5vw;
+      align-items: start;
+    }
+
+    .story-sidebar {
+      position: sticky;
+      top: 3rem;
+    }
+
+    .story-headline {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(2rem, 3.5vw, 3.2rem);
+      font-weight: 700;
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      color: #0D0B1A;
+      margin-bottom: 1.5rem;
+    }
+
+    .story-pull {
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--red);
+      border-top: 2px solid var(--red);
+      padding-top: 1rem;
+    }
+
+    .story-body {
+      display: flex;
+      flex-direction: column;
+      gap: 2.2rem;
+    }
+
+    .story-chapter {
+      padding-top: 2.2rem;
+      border-top: 1px solid rgba(13, 11, 26, 0.12);
+    }
+
+    .story-chapter:first-child {
+      padding-top: 0;
+      border-top: none;
+    }
+
+    .chapter-label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 0.9rem;
+    }
+
+    .chapter-text {
+      font-size: clamp(0.95rem, 1.3vw, 1.1rem);
+      line-height: 1.8;
+      color: rgba(13, 11, 26, 0.8);
+    }
+
+    .chapter-text strong {
+      color: #0D0B1A;
+      font-weight: 600;
+    }
+
+    .story-quote {
+      margin: 0.5rem 0;
+      padding: 1.8rem 2rem;
+      background: rgba(212, 23, 25, 0.06);
+      border-left: 3px solid var(--red);
+      border-radius: 2px;
+    }
+
+    .quote-text {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: clamp(1rem, 1.4vw, 1.2rem);
+      font-weight: 500;
+      line-height: 1.55;
+      color: #0D0B1A;
+      font-style: italic;
+      margin-bottom: 0.8rem;
+    }
+
+    .quote-attr {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(13, 11, 26, 0.45);
+    }
+
+    /* ─── FOOTER ─── */
+    .footer {
+      background: var(--bg);
+      padding: 2.5rem 6vw;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .footer-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .footer-wordmark {
+      display: block;
+      height: 24px;
+      width: auto;
+      filter: brightness(0) invert(1);
+    }
+
+    .footer-note {
+      font-size: 0.72rem;
+      color: var(--text-dim);
+    }
+
+    .footer-right {
+      font-size: 0.7rem;
+      color: var(--text-dim);
+      letter-spacing: 0.08em;
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .story-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .story-sidebar {
+        position: static;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .hero-content {
+        max-width: 100%;
+      }
+      .hero-fade {
+        background: linear-gradient(to bottom, rgba(255,255,255,0) 40%, rgba(255,255,255,0.8) 65%, #FFFFFF 82%);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .metric-row-body {
+        grid-template-columns: 1fr;
+      }
+      .metric-row-body {
+        grid-template-columns: 1fr;
+      }
+
+      .proof-panel {
+        padding: 2rem 1.5rem;
+      }
+
+      .hero-headline {
+        font-size: 3rem;
+      }
+
+      .footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ─── HERO ─── -->
+  <section class="hero">
+    <svg width="0" height="0" style="position:absolute">
+      <defs>
+        <clipPath id="imageClip" clipPathUnits="objectBoundingBox">
+          <path d="M 0,0 L 1,0 L 1,1 L 0.38,1 C -0.02,0.65 0.18,0.3 0,0 Z"/>
+        </clipPath>
+      </defs>
+    </svg>
+    <img src="Frame 10.png" alt="" class="hero-bg-image" />
+    <div class="hero-fade"></div>
+    <div class="hero-glow"></div>
+    <div class="hero-noise"></div>
+
+    <nav class="hero-nav">
+      <img src="Group 254.png" alt="DUIU" class="duiu-wordmark" />
+      <span class="case-study-badge">Brand Case Study</span>
+    </nav>
+
+    <div class="hero-content">
+      <div class="brand-lockup reveal">
+        <span class="brand-name">Centauro</span>
+        <div class="brand-divider"></div>
+        <span class="brand-country">Brazil · 2026</span>
+      </div>
+
+      <p class="hero-drop-label reveal delay-1">Drop Campaign</p>
+
+      <h1 class="hero-headline reveal delay-2">
+        Seu Melhor<br /><em>Jogo.</em>
+      </h1>
+
+      <p class="hero-subhead reveal delay-3">
+        Centauro invited Brazil to post their best sports moment. Fans voted, the community grew, and a Gold prize tier was unlocked in under two weeks.
+      </p>
+
+      <div class="hero-meta reveal delay-4">
+        <span class="meta-item"><span class="meta-dot"></span>21 Days Active</span>
+        <span class="meta-item"><span class="meta-dot"></span>Brazil</span>
+        <span class="meta-item"><span class="meta-dot"></span>Gold Prize Tier — R$15,000</span>
+        <span class="meta-item"><span class="meta-dot"></span>2.5M Organic Reach</span>
+      </div>
+    </div>
+
+    <div class="hero-scroll-hint">
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+
+  <!-- ─── STATS ─── -->
+  <section class="stats">
+    <p class="section-label reveal">Campaign Performance</p>
+
+    <div class="stats-grid">
+
+    <div class="proof-panel glass-card slide-left">
+      <div class="glass-card-header proof-header">
+        <span class="proof-title">Platform Health Indicators</span>
+        <span class="proof-subtitle">Benchmarks cleared this campaign</span>
+      </div>
+
+      <div class="proof-body">
+      <div class="proof-metrics">
+
+        <div class="proof-metric">
+          <div class="proof-top">
+            <span class="proof-number">38%</span>
+            <span class="proof-check">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                <path d="M1.5 5L4 7.5L8.5 2.5" stroke="#00C8C0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Cleared
+            </span>
+          </div>
+          <span class="proof-name">Participation Rate</span>
+          <div class="proof-bar-wrap">
+            <div class="proof-bar" style="width: 100%;"></div>
+          </div>
+          <span class="proof-threshold">Threshold <strong>&gt;35%</strong></span>
+        </div>
+
+        <div class="proof-metric">
+          <div class="proof-top">
+            <span class="proof-number">1.6x</span>
+            <span class="proof-check">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                <path d="M1.5 5L4 7.5L8.5 2.5" stroke="#00C8C0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Cleared
+            </span>
+          </div>
+          <span class="proof-name">Invite Multiplier</span>
+          <div class="proof-bar-wrap">
+            <div class="proof-bar" style="width: 100%;"></div>
+          </div>
+          <span class="proof-threshold">Threshold <strong>&gt;1.3x</strong></span>
+        </div>
+
+        <div class="proof-metric">
+          <div class="proof-top">
+            <span class="proof-number">41%</span>
+            <span class="proof-check">
+              <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
+                <path d="M1.5 5L4 7.5L8.5 2.5" stroke="#00C8C0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              Cleared
+            </span>
+          </div>
+          <span class="proof-name">Return Engagement</span>
+          <div class="proof-bar-wrap">
+            <div class="proof-bar" style="width: 100%;"></div>
+          </div>
+          <span class="proof-threshold">Threshold <strong>&gt;25%</strong></span>
+        </div>
+
+      </div>
+      </div>
+    </div>
+
+    <div class="campaign-metrics slide-right">
+
+      <div class="glass-card reveal delay-1">
+        <div class="glass-card-header">Participation</div>
+        <div class="metric-row-body">
+          <div class="metric-cell">
+            <span class="metric-number" data-count="11400">11,400</span>
+            <span class="metric-label">Total Replies</span>
+          </div>
+          <div class="metric-cell">
+            <span class="metric-number" data-count="284k">284k</span>
+            <span class="metric-label">Votes Cast</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass-card reveal delay-2">
+        <div class="glass-card-header">Reach &amp; Prize</div>
+        <div class="metric-row-body">
+          <div class="metric-cell">
+            <span class="metric-number" data-count="2.5M">2.5M</span>
+            <span class="metric-label">Organic Reach</span>
+          </div>
+          <div class="metric-cell">
+            <span class="metric-number orange">Gold</span>
+            <span class="metric-label">Prize Tier — R$15,000</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass-card reveal delay-3">
+        <div class="glass-card-header">Distribution</div>
+        <div class="metric-row-body">
+          <div class="metric-cell">
+            <span class="metric-number" data-count="6.8M">6.8M</span>
+            <span class="metric-label">Total Views</span>
+          </div>
+          <div class="metric-cell">
+            <span class="metric-number" data-count="32400">32,400</span>
+            <span class="metric-label">Campaign Shares</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    </div><!-- end stats-grid -->
+  </section>
+
+
+  <!-- ─── STORY ─── -->
+  <section class="story">
+    <p class="section-label reveal">The Story</p>
+
+    <div class="story-grid">
+      <div class="story-sidebar reveal">
+        <h2 class="story-headline">What happened during the Drop</h2>
+        <p class="story-pull">21 days. 11,400 creators. One Gold tier unlocked.</p>
+      </div>
+
+      <div class="story-body">
+
+        <div class="story-chapter reveal">
+          <p class="chapter-label">The Brief</p>
+          <p class="chapter-text">
+            Centauro came to DUIU looking for something traditional media could not give them: <strong>proof that real people loved their gear</strong>. The brief was simple. Open a Drop called "Seu Melhor Jogo," set a 15,000 BRL Gold prize pool, and invite Brazil to show their best sports moment while wearing Centauro. No script. No casting. Just the community.
+          </p>
+        </div>
+
+        <div class="story-chapter reveal">
+          <p class="chapter-label">What Happened</p>
+          <p class="chapter-text">
+            The Drop opened on a Tuesday morning and hit 1,000 Replies by Friday. By day eight, a clip from a 17-year-old futsal player in Recife had collected over 28,000 votes and was being shared across group chats without any paid distribution behind it. The invite multiplier climbed to 1.6x, meaning more than half the new participants arrived through a direct share from someone already inside the campaign. Centauro's team watched in real time as the Thread filled with content they could never have briefed for or bought.
+          </p>
+        </div>
+
+        <div class="story-chapter reveal">
+          <p class="chapter-label">The Outcome</p>
+          <p class="chapter-text">
+            The Gold prize tier unlocked on day fourteen, three days ahead of the campaign's expected pace. By the close, <strong>2.5 million unique accounts had seen at least one Reply</strong>, with 41 percent of participants returning to vote or engage on more than one session. Centauro left with a library of authentic user-generated content, a measurable community they did not have before the Drop, and a media cost per engaged viewer that their team described as unlike anything in their current mix.
+          </p>
+
+          <div class="story-quote">
+            <p class="quote-text">"We briefed for a campaign. What we got was a community. The content people made for us was better than anything we could have produced ourselves."</p>
+            <p class="quote-attr">Head of Brand, Centauro — Post-campaign debrief</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ─── FOOTER ─── -->
+  <footer class="footer">
+    <div class="footer-left">
+      <img src="Group 254.png" alt="DUIU" class="footer-wordmark" />
+      <span class="footer-note">Participation-first social video. Brazil 2026.</span>
+    </div>
+    <span class="footer-right">duiu.app</span>
+  </footer>
+
+
+  <script>
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal, .slide-left, .slide-right').forEach(el => observer.observe(el));
+
+    // Proof bar animation trigger
+    const barObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.querySelectorAll('.proof-bar').forEach((bar, i) => {
+            setTimeout(() => bar.classList.add('animated'), i * 150);
+          });
+          barObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+
+    const panel = document.querySelector('.proof-panel');
+    if (panel) barObserver.observe(panel);
+
+    // Count-up animation for metric numbers
+    function animateCount(el) {
+      const raw = el.dataset.count;
+      if (!raw) return;
+
+      const hasM = raw.endsWith('M');
+      const hasK = raw.endsWith('k');
+      const suffix = hasM ? 'M' : hasK ? 'k' : '';
+      const target = parseFloat(raw.replace(/[Mk,]/g, ''));
+      const isDecimal = raw.includes('.');
+      const useComma = !hasM && !hasK;
+      const duration = 2000;
+      const startTime = performance.now();
+
+      function tick(now) {
+        const progress = Math.min((now - startTime) / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 2);
+        const current = target * eased;
+
+        if (isDecimal) {
+          el.textContent = current.toFixed(1) + suffix;
+        } else if (useComma) {
+          el.textContent = Math.round(current).toLocaleString('en-US');
+        } else {
+          el.textContent = Math.round(current) + suffix;
+        }
+
+        if (progress < 1) requestAnimationFrame(tick);
+      }
+
+      requestAnimationFrame(tick);
+    }
+
+    const countObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.querySelectorAll('.metric-number[data-count]').forEach(el => animateCount(el));
+          countObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.campaign-metrics .glass-card').forEach(card => countObserver.observe(card));
+</script>
+
+</body>
+</html>
