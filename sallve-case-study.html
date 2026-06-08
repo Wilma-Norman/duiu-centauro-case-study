@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DUIU × Centauro — Case Study</title>
+  <title>DUIU × Sallve — Case Study</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <script src="https://cdn.tailwindcss.com"></script>
@@ -188,7 +188,7 @@
     .brand-divider {
       width: 1px;
       height: 1.2rem;
-      background: var(--border);
+      background: rgba(13, 11, 26, 0.2);
     }
 
     .brand-country {
@@ -298,66 +298,22 @@
 
     .stats-grid {
       display: grid;
-      grid-template-columns: 3fr 2fr;
-      gap: 2.5rem;
-      align-items: stretch;
-    }
-
-    /* Shared glass card style */
-    .glass-card {
-      border-radius: 14px;
-      overflow: hidden;
-      background: linear-gradient(
-        135deg,
-        rgba(255, 255, 255, 0.08) 0%,
-        rgba(255, 255, 255, 0.03) 60%,
-        rgba(255, 255, 255, 0.06) 100%
-      );
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
-      border: 1px solid rgba(255, 255, 255, 0.12);
-      border-top-color: rgba(255, 255, 255, 0.22);
-      border-left-color: rgba(255, 255, 255, 0.16);
-      box-shadow:
-        0 8px 32px rgba(0, 0, 0, 0.35),
-        inset 0 1px 0 rgba(255, 255, 255, 0.14),
-        inset 0 -1px 0 rgba(0, 0, 0, 0.2);
-    }
-
-    .glass-card-header {
-      background: rgba(0, 0, 0, 0.55);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-      padding: 0.8rem 1.6rem;
-      font-size: 0.62rem;
-      font-weight: 600;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--text-dim);
-    }
-
-    /* Campaign metrics column */
-    .campaign-metrics {
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-      height: 100%;
-    }
-
-    .campaign-metrics .glass-card {
-      flex: 1;
-    }
-
-    .metric-row-body {
-      display: grid;
       grid-template-columns: 1fr 1fr;
+      gap: 2.5rem;
+      align-items: start;
+    }
+
+    .campaign-metrics {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
       gap: 0.75rem;
-      padding: 0.75rem;
     }
 
     .metric-cell {
-      padding: 1.4rem 2.2rem 1.4rem 1.2rem;
-      border-radius: 8px;
-      background: rgba(0, 0, 0, 0.2);
+      padding: 1.8rem 2rem;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.03);
     }
 
     .metric-number {
@@ -371,7 +327,8 @@
       display: block;
     }
 
-    .metric-number.orange { color: var(--cyan); }
+    .metric-number.accent { color: var(--cyan); }
+
 
     .metric-label {
       font-size: 0.88rem;
@@ -384,7 +341,12 @@
 
     /* Proof metrics panel */
     .proof-panel {
+      background: #1A0808;
+      border: 1px solid var(--border);
       border-left: 3px solid var(--red);
+      border-radius: 12px;
+      padding: 3rem 3.5rem;
+
     }
 
     .proof-header {
@@ -393,6 +355,7 @@
       justify-content: space-between;
       flex-wrap: wrap;
       gap: 1rem;
+      margin-bottom: 3rem;
     }
 
     .proof-title {
@@ -409,10 +372,6 @@
       letter-spacing: 0.1em;
       text-transform: uppercase;
       color: var(--text-dim);
-    }
-
-    .proof-body {
-      padding: 2.5rem 3rem;
     }
 
     .proof-metrics {
@@ -479,7 +438,7 @@
 
     .proof-bar {
       height: 100%;
-      background: linear-gradient(to right, var(--cyan), var(--red));
+      background: linear-gradient(to right, var(--red), var(--cyan));
       border-radius: 2px;
       transform-origin: left;
       animation: barGrow 1.2s ease forwards;
@@ -670,12 +629,14 @@
     }
 
     @media (max-width: 600px) {
-      .metric-row-body {
+      .campaign-metrics {
         grid-template-columns: 1fr;
       }
-      .metric-row-body {
-        grid-template-columns: 1fr;
+      .metric-cell {
+        border-right: none;
+        border-top: 1px solid var(--border);
       }
+      .metric-cell:first-child { border-top: none; }
 
       .proof-panel {
         padding: 2rem 1.5rem;
@@ -716,7 +677,7 @@
 
     <div class="hero-content">
       <div class="brand-lockup reveal">
-        <span class="brand-name">Centauro</span>
+        <span class="brand-name">Sallve</span>
         <div class="brand-divider"></div>
         <span class="brand-country">Brazil · 2026</span>
       </div>
@@ -724,18 +685,18 @@
       <p class="hero-drop-label reveal delay-1">Drop Campaign</p>
 
       <h1 class="hero-headline reveal delay-2">
-        Seu Melhor<br /><em>Jogo.</em>
+        Sua Pele,<br /><em>Sua Luz.</em>
       </h1>
 
       <p class="hero-subhead reveal delay-3">
-        Centauro invited Brazil to post their best sports moment. Fans voted, the community grew, and a Gold prize tier was unlocked in under two weeks.
+        Sallve invited Brazil to share their real skincare story. The community showed up, the votes poured in, and a Silver prize tier unlocked in ten days.
       </p>
 
       <div class="hero-meta reveal delay-4">
-        <span class="meta-item"><span class="meta-dot"></span>21 Days Active</span>
+        <span class="meta-item"><span class="meta-dot"></span>14 Days Active</span>
         <span class="meta-item"><span class="meta-dot"></span>Brazil</span>
-        <span class="meta-item"><span class="meta-dot"></span>Gold Prize Tier — R$15,000</span>
-        <span class="meta-item"><span class="meta-dot"></span>2.5M Organic Reach</span>
+        <span class="meta-item"><span class="meta-dot"></span>Silver Prize Tier — R$8,000</span>
+        <span class="meta-item"><span class="meta-dot"></span>1.8M Organic Reach</span>
       </div>
     </div>
 
@@ -751,18 +712,17 @@
 
     <div class="stats-grid">
 
-    <div class="proof-panel glass-card slide-left">
-      <div class="glass-card-header proof-header">
+    <div class="proof-panel slide-left">
+      <div class="proof-header">
         <span class="proof-title">Platform Health Indicators</span>
         <span class="proof-subtitle">Benchmarks cleared this campaign</span>
       </div>
 
-      <div class="proof-body">
       <div class="proof-metrics">
 
         <div class="proof-metric">
           <div class="proof-top">
-            <span class="proof-number">38%</span>
+            <span class="proof-number">42%</span>
             <span class="proof-check">
               <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
                 <path d="M1.5 5L4 7.5L8.5 2.5" stroke="#00C8C0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -779,7 +739,7 @@
 
         <div class="proof-metric">
           <div class="proof-top">
-            <span class="proof-number">1.6x</span>
+            <span class="proof-number">1.8x</span>
             <span class="proof-check">
               <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
                 <path d="M1.5 5L4 7.5L8.5 2.5" stroke="#00C8C0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -796,7 +756,7 @@
 
         <div class="proof-metric">
           <div class="proof-top">
-            <span class="proof-number">41%</span>
+            <span class="proof-number">38%</span>
             <span class="proof-check">
               <svg width="10" height="10" viewBox="0 0 10 10" fill="none">
                 <path d="M1.5 5L4 7.5L8.5 2.5" stroke="#00C8C0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -812,53 +772,33 @@
         </div>
 
       </div>
-      </div>
     </div>
 
     <div class="campaign-metrics slide-right">
-
-      <div class="glass-card reveal delay-1">
-        <div class="glass-card-header">Participation</div>
-        <div class="metric-row-body">
-          <div class="metric-cell">
-            <span class="metric-number" data-count="11400">11,400</span>
-            <span class="metric-label">Total Replies</span>
-          </div>
-          <div class="metric-cell">
-            <span class="metric-number" data-count="284k">284k</span>
-            <span class="metric-label">Votes Cast</span>
-          </div>
-        </div>
+      <div class="metric-cell reveal delay-1">
+        <span class="metric-number">8,200</span>
+        <span class="metric-label">Total Replies</span>
       </div>
-
-      <div class="glass-card reveal delay-2">
-        <div class="glass-card-header">Reach &amp; Prize</div>
-        <div class="metric-row-body">
-          <div class="metric-cell">
-            <span class="metric-number" data-count="2.5M">2.5M</span>
-            <span class="metric-label">Organic Reach</span>
-          </div>
-          <div class="metric-cell">
-            <span class="metric-number orange">Gold</span>
-            <span class="metric-label">Prize Tier — R$15,000</span>
-          </div>
-        </div>
+      <div class="metric-cell reveal delay-2">
+        <span class="metric-number">196k</span>
+        <span class="metric-label">Votes Cast</span>
       </div>
-
-      <div class="glass-card reveal delay-3">
-        <div class="glass-card-header">Distribution</div>
-        <div class="metric-row-body">
-          <div class="metric-cell">
-            <span class="metric-number" data-count="6.8M">6.8M</span>
-            <span class="metric-label">Total Views</span>
-          </div>
-          <div class="metric-cell">
-            <span class="metric-number" data-count="32400">32,400</span>
-            <span class="metric-label">Campaign Shares</span>
-          </div>
-        </div>
+      <div class="metric-cell reveal delay-3">
+        <span class="metric-number">1.8M</span>
+        <span class="metric-label">Organic Reach</span>
       </div>
-
+      <div class="metric-cell reveal delay-4">
+        <span class="metric-number accent">Silver</span>
+        <span class="metric-label">Prize Tier — R$8,000</span>
+      </div>
+      <div class="metric-cell reveal delay-1">
+        <span class="metric-number">4.1M</span>
+        <span class="metric-label">Total Views</span>
+      </div>
+      <div class="metric-cell reveal delay-2">
+        <span class="metric-number">18,600</span>
+        <span class="metric-label">Campaign Shares</span>
+      </div>
     </div>
 
     </div><!-- end stats-grid -->
@@ -872,7 +812,7 @@
     <div class="story-grid">
       <div class="story-sidebar reveal">
         <h2 class="story-headline">What happened during the Drop</h2>
-        <p class="story-pull">21 days. 11,400 creators. One Gold tier unlocked.</p>
+        <p class="story-pull">14 days. 8,200 creators. One Silver tier unlocked.</p>
       </div>
 
       <div class="story-body">
@@ -880,26 +820,26 @@
         <div class="story-chapter reveal">
           <p class="chapter-label">The Brief</p>
           <p class="chapter-text">
-            Centauro came to DUIU looking for something traditional media could not give them: <strong>proof that real people loved their gear</strong>. The brief was simple. Open a Drop called "Seu Melhor Jogo," set a 15,000 BRL Gold prize pool, and invite Brazil to show their best sports moment while wearing Centauro. No script. No casting. Just the community.
+            Sallve came to DUIU with a clear tension: they had built a brand people genuinely loved, but <strong>the best evidence of that lived in private conversations</strong>, not in public. The Drop was called "Sua Pele, Sua Luz" — an open invitation for anyone to share their real skincare story, their routine, their results, with Sallve products or without. No filters required. No perfection expected. Just honesty.
           </p>
         </div>
 
         <div class="story-chapter reveal">
           <p class="chapter-label">What Happened</p>
           <p class="chapter-text">
-            The Drop opened on a Tuesday morning and hit 1,000 Replies by Friday. By day eight, a clip from a 17-year-old futsal player in Recife had collected over 28,000 votes and was being shared across group chats without any paid distribution behind it. The invite multiplier climbed to 1.6x, meaning more than half the new participants arrived through a direct share from someone already inside the campaign. Centauro's team watched in real time as the Thread filled with content they could never have briefed for or bought.
+            Within 48 hours the Drop had over 600 Replies. The content that performed best was not polished — it was a woman in Belo Horizonte filming her nighttime routine under bathroom light, no ring light, no script, just talking through each step. Her video collected 31,000 votes and became the emotional centrepiece of the Thread. The invite multiplier reached 1.8x as participants tagged friends who they thought "needed to see this." Sallve's marketing team spent the week reading comments instead of running ads.
           </p>
         </div>
 
         <div class="story-chapter reveal">
           <p class="chapter-label">The Outcome</p>
           <p class="chapter-text">
-            The Gold prize tier unlocked on day fourteen, three days ahead of the campaign's expected pace. By the close, <strong>2.5 million unique accounts had seen at least one Reply</strong>, with 41 percent of participants returning to vote or engage on more than one session. Centauro left with a library of authentic user-generated content, a measurable community they did not have before the Drop, and a media cost per engaged viewer that their team described as unlike anything in their current mix.
+            The Silver prize tier unlocked on day ten, four days before the campaign closed. <strong>1.8 million accounts reached, 38 percent returning</strong> to engage across multiple sessions. The Drop generated over 8,200 pieces of content that Sallve now uses across their own channels with full creator permission built into the platform. The cost to acquire that library was a fraction of a single traditional production shoot.
           </p>
 
           <div class="story-quote">
-            <p class="quote-text">"We briefed for a campaign. What we got was a community. The content people made for us was better than anything we could have produced ourselves."</p>
-            <p class="quote-attr">Head of Brand, Centauro — Post-campaign debrief</p>
+            <p class="quote-text">"We always knew people loved the product. After the Drop, we had 8,000 videos proving it — in their words, in their homes, in their own light."</p>
+            <p class="quote-attr">Brand Director, Sallve — Post-campaign debrief</p>
           </div>
         </div>
 
@@ -919,7 +859,6 @@
 
 
   <script>
-    // Scroll reveal
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -931,7 +870,6 @@
 
     document.querySelectorAll('.reveal, .slide-left, .slide-right').forEach(el => observer.observe(el));
 
-    // Proof bar animation trigger
     const barObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -945,51 +883,7 @@
 
     const panel = document.querySelector('.proof-panel');
     if (panel) barObserver.observe(panel);
-
-    // Count-up animation for metric numbers
-    function animateCount(el) {
-      const raw = el.dataset.count;
-      if (!raw) return;
-
-      const hasM = raw.endsWith('M');
-      const hasK = raw.endsWith('k');
-      const suffix = hasM ? 'M' : hasK ? 'k' : '';
-      const target = parseFloat(raw.replace(/[Mk,]/g, ''));
-      const isDecimal = raw.includes('.');
-      const useComma = !hasM && !hasK;
-      const duration = 2000;
-      const startTime = performance.now();
-
-      function tick(now) {
-        const progress = Math.min((now - startTime) / duration, 1);
-        const eased = 1 - Math.pow(1 - progress, 2);
-        const current = target * eased;
-
-        if (isDecimal) {
-          el.textContent = current.toFixed(1) + suffix;
-        } else if (useComma) {
-          el.textContent = Math.round(current).toLocaleString('en-US');
-        } else {
-          el.textContent = Math.round(current) + suffix;
-        }
-
-        if (progress < 1) requestAnimationFrame(tick);
-      }
-
-      requestAnimationFrame(tick);
-    }
-
-    const countObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.querySelectorAll('.metric-number[data-count]').forEach(el => animateCount(el));
-          countObserver.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.5 });
-
-    document.querySelectorAll('.campaign-metrics .glass-card').forEach(card => countObserver.observe(card));
-</script>
+  </script>
 
 </body>
 </html>
