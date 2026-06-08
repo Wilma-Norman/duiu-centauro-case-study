@@ -1,0 +1,14 @@
+# Database credentials — never commit these
+postgres/
+
+# Node
+node_modules/
+package-lock.json
+
+# Build output
+dist/
+.svelte-kit/
+
+# OS
+.DS_Store
+Thumbs.db
